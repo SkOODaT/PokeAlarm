@@ -29,6 +29,7 @@ class Cache(object):
         self._gym_name = {}
         self._gym_desc = {}
         self._gym_image = {}
+        self._reward = {}
 
     def monster_expiration(self, mon_id, expiration=None):
         """ Update and return the datetime that a monster expires."""
