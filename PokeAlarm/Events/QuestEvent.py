@@ -4,7 +4,7 @@
 from PokeAlarm import Unknown
 from . import BaseEvent
 from PokeAlarm.Utils import get_gmaps_link, get_applemaps_link, \
-    get_time_as_str, get_dist_as_str
+    get_dist_as_str
 
 
 class QuestEvent(BaseEvent):
