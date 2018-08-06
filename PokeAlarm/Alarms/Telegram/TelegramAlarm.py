@@ -60,7 +60,12 @@ class TelegramAlarm(Alarm):
                        "(<raid_time_left>).",
             'sticker_url':
                 get_image_url("telegram/monsters/<mon_id_3>_000.webp")
-        }
+        },
+        'quest': {
+            'message': "*New quest for <reward>*\n"
+                       "<quest>",
+            'sticker_url': get_image_url("telegram/stop/ready.webp")
+        },
     }
 
     # Gather settings and create alarm
@@ -109,6 +114,8 @@ class TelegramAlarm(Alarm):
             'eggs', settings, alert_defaults)
         self._raid_alert = self.create_alert_settings(
             'raids', settings, alert_defaults)
+        self._quest_alert = self.create_alert_settings(
+            'quest', settings, alert_defaults)
 
         # Reject leftover parameters
         for key in settings:
@@ -222,6 +229,10 @@ class TelegramAlarm(Alarm):
     # Trigger an alert based on Raid info
     def raid_alert(self, raid_dts):
         self.generic_alert(self._raid_alert, raid_dts)
+
+    # Trigger an alert based on Quest info
+    def quest_alert(self, quest_dts):
+        self.generic_alert(self._quest_alert, quest_dts)
 
     def send_sticker(self, token, chat_id, sticker_url,
                      max_attempts=3, notify=False):
