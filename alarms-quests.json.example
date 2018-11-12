@@ -1,0 +1,60 @@
+{
+  "discord_alarm":{
+    "active":false,
+    "type":"discord",
+    "webhook_url":"YOUR_WEBHOOK_URL",
+    "quests":{   
+		"username": "<mon_name><item_name>",
+		"icon_url" : "<stop_image>",
+		"avatar_url": "<stop_sprite>",
+        "url": "<gmaps>",
+		"title":"[<neighborhood>] <address> (<postal>)",
+	    "body": "**Pokestop Name:**\n <stop_name>\n **Quest:**\n <quest_type> [<target>] <type_name> <conditions_name> <mon_name2><throw_name><raid_levels> <hit>\n **Rewards:**\n <reward_type> <pokemon_id> <mon_name> <item_name> <amount>",
+		"map": {
+			"enabled":"true",
+			"width":"250",
+			"height":"125",
+			"maptype":"roadmap",
+			"zoom": "14"
+		}
+	}
+  },
+  "facebook_alarm":{
+    "active":false,
+    "type":"facebook_page",
+    "page_access_token":"YOUR_PAGE_ACCESS_TOKEN"
+  },
+  "pushbullet_alarm":{
+    "active":false,
+    "type":"pushbullet",
+    "api_key":"YOUR_API_KEY"
+  },
+  "slack_alarm":{
+    "active":false,
+    "channel":"general",
+    "type":"slack",
+    "api_key":"YOUR_API_KEY"
+  },
+  "telegram_alarm":{
+    "active":false,
+    "type":"telegram",
+    "bot_token":"YOUR_BOT_TOKEN",
+    "chat_id":"YOUR_CHAT_ID"
+  },
+  "twilio_alarm":{
+    "active":false,
+    "type":"twilio",
+    "account_sid":"YOUR_API_KEY",
+    "auth_token":"YOUR_AUTH_TOKEN",
+    "from_number":"YOUR_FROM_NUM",
+    "to_number":"YOUR_TO_NUM"
+  },
+  "twitter_alarm":{
+    "active":false,
+    "type":"twitter",
+    "access_token":"YOUR_ACCESS_TOKEN",
+    "access_secret":"YOUR_ACCESS_SECRET",
+    "consumer_key":"YOUR_CONSUMER_KEY",
+    "consumer_secret":"YOUR_CONSUMER_SECRET"
+  }
+}

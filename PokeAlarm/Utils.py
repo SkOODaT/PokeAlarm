@@ -9,7 +9,6 @@ import os
 import sys
 # 3rd Party Imports
 # Local Imports
-from PokeAlarm import not_so_secret_url
 from PokeAlarm import config
 from PokeAlarm import Unknown
 
@@ -494,7 +493,7 @@ def get_seconds_remaining(t, timezone=None):
 
 # Return the default url for images and stuff
 def get_image_url(suffix):
-    return not_so_secret_url + suffix
+    return 'http://YOURICONURL/' + suffix
 
 
 # Returns the id corresponding with the weather

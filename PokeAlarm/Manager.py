@@ -984,7 +984,7 @@ class Manager(object):
         """ Process a quest event and notify alarms if it passes. """
 
         # Set the name for this event so we can log rejects better
-        quest.name = quest.stop_name + '-' + quest.reward
+        #quest.name = quest.stop_name + '-' + quest.reward
 
         # Make sure that quest changes are enabled
         if self._quest_enabled is False:

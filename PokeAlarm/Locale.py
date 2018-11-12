@@ -108,6 +108,36 @@ class Locale(object):
         quest_types = info.get('quest_types', {})
         for id_, val in default['quest_types'].iteritems():
             self.__quest_type_names[int(id_)] = quest_types.get(id_, val)
+			
+        # reward Type ID -> reward Type Name
+        self.__reward_type_names = {}
+        reward_types = info.get('reward_types', {})
+        for id_, val in default['reward_types'].iteritems():
+            self.__reward_type_names[int(id_)] = reward_types.get(id_, val)
+			
+        # item Type ID -> item Type Name
+        self.__item_type_names = {}
+        item_types = info.get('item_types', {})
+        for id_, val in default['item_types'].iteritems():
+            self.__item_type_names[int(id_)] = item_types.get(id_, val)
+			
+        # condition Type ID -> condition Type Name
+        self.__condition_type_names = {}
+        condition_types = info.get('condition_types', {})
+        for id_, val in default['condition_types'].iteritems():
+            self.__condition_type_names[int(id_)] = condition_types.get(id_, val)
+			
+        # throw Type ID -> throw Type Name
+        self.__throw_type_names = {}
+        throw_types = info.get('throw_types', {})
+        for id_, val in default['throw_types'].iteritems():
+            self.__throw_type_names[int(id_)] = throw_types.get(id_, val)
+			
+        # pokemon Type ID -> throw Type Name
+        self.__pokemon_type_names = {}
+        pokemon_types = info.get('pokemon_types', {})
+        for id_, val in default['pokemon_types'].iteritems():
+            self.__pokemon_type_names[int(id_)] = pokemon_types.get(id_, val)
 
         log.debug("Loaded '{}' locale successfully!".format(language))
 
@@ -115,7 +145,7 @@ class Locale(object):
 
     # Returns the name of the Pokemon associated with the given ID
     def get_pokemon_name(self, pokemon_id):
-        return self.__pokemon_names.get(pokemon_id, 'unknown')
+        return self.__pokemon_names.get(pokemon_id, '')
 
     # Returns the name of the move associated with the move ID
     def get_move_name(self, move_id):
@@ -165,3 +195,18 @@ class Locale(object):
 
     def get_quest_type_name(self, quest_type_id):
         return self.__quest_type_names.get(quest_type_id, 'unknown')
+		
+    def get_reward_type_name(self, reward_type_id):
+        return self.__reward_type_names.get(reward_type_id, 'unknown')
+		
+    def get_item_type_name(self, item_type_id):
+        return self.__item_type_names.get(item_type_id, '')
+		
+    def get_condition_type_name(self, condition_type_id):
+        return self.__condition_type_names.get(condition_type_id, '')
+		
+    def get_throw_type_name(self, throw_type_id):
+        return self.__throw_type_names.get(throw_type_id, '')
+		
+    def get_pokemon_type_name(self, pokemon_type_id):
+        return self.__pokemon_type_names.get(pokemon_type_id, '')
