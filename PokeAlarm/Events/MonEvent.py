@@ -9,7 +9,8 @@ from PokeAlarm.Utils import (
     get_move_duration, get_move_energy, get_pokemon_size,
     get_applemaps_link, get_time_as_str, get_seconds_remaining,
     get_base_types, get_dist_as_str, get_weather_emoji,
-    get_type_emoji, get_waze_link)
+    get_type_emoji, get_weather_emoji_custom, get_type_emoji_custom, 
+    get_waze_link)
 from . import BaseEvent
 
 
@@ -21,6 +22,7 @@ class MonEvent(BaseEvent):
         super(MonEvent, self).__init__('monster')
         check_for_none = BaseEvent.check_for_none
 
+        #print(data)
         # Identification
         self.enc_id = data['encounter_id']
         self.monster_id = int(data['pokemon_id'])
@@ -44,12 +46,12 @@ class MonEvent(BaseEvent):
         self.weather_id = check_for_none(
             int, data.get('weather'), Unknown.TINY)
         self.boosted_weather_id = check_for_none(
-            int, data.get('boosted_weather')
-            or data.get('weather_boosted_condition'), 0)
+            int, data.get('weather')
+            or data.get('weather'), 0)
 
         # Encounter Stats
         self.mon_lvl = check_for_none(
-            int, data.get('pokemon_level'), Unknown.TINY)
+            int, data.get('level'), Unknown.TINY) 
         self.cp = check_for_none(int, data.get('cp'), Unknown.TINY)
 
         # IVs
@@ -136,6 +138,8 @@ class MonEvent(BaseEvent):
 
         type1 = locale.get_type_name(self.types[0])
         type2 = locale.get_type_name(self.types[1])
+		
+        self.m_types_emoji = get_type_emoji_custom(self.quick_type) + '/' + get_type_emoji_custom(self.charge_type)
 
         dts = self.custom_dts.copy()
         dts.update({
@@ -173,14 +177,14 @@ class MonEvent(BaseEvent):
             'weather_id': self.weather_id,
             'weather': weather_name,
             'weather_or_empty': Unknown.or_empty(weather_name),
-            'weather_emoji': get_weather_emoji(self.weather_id),
+            'weather_emoji': get_weather_emoji_custom(self.weather_id),
             'boosted_weather_id': self.boosted_weather_id,
             'boosted_weather': boosted_weather_name,
             'boosted_weather_or_empty': (
                 '' if self.boosted_weather_id == 0
                 else Unknown.or_empty(boosted_weather_name)),
             'boosted_weather_emoji':
-                get_weather_emoji(self.boosted_weather_id),
+                get_weather_emoji_custom(self.boosted_weather_id),
             'boosted_or_empty': locale.get_boosted_text() if \
                 Unknown.is_not(self.boosted_weather_id) and
                 self.boosted_weather_id != 0 else '',
@@ -206,18 +210,18 @@ class MonEvent(BaseEvent):
             # Type
             'type1': type1,
             'type1_or_empty': Unknown.or_empty(type1),
-            'type1_emoji': Unknown.or_empty(get_type_emoji(self.types[0])),
+            'type1_emoji': Unknown.or_empty(get_type_emoji_custom(self.types[0])),
             'type2': type2,
             'type2_or_empty': Unknown.or_empty(type2),
-            'type2_emoji': Unknown.or_empty(get_type_emoji(self.types[1])),
+            'type2_emoji': Unknown.or_empty(get_type_emoji_custom(self.types[1])),
             'types': (
                 "{}/{}".format(type1, type2)
                 if Unknown.is_not(type2) else type1),
             'types_emoji': (
                 "{}{}".format(
-                    get_type_emoji(self.types[0]),
-                    get_type_emoji(self.types[1]))
-                if Unknown.is_not(type2) else get_type_emoji(self.types[0])),
+                    get_type_emoji_custom(self.types[0]),
+                    get_type_emoji_custom(self.types[1]))
+                if Unknown.is_not(type2) else get_type_emoji_custom(self.types[0])),
 
             # Form
             'form': form_name,
@@ -236,7 +240,7 @@ class MonEvent(BaseEvent):
             'quick_id': self.quick_id,
             'quick_type_id': self.quick_type,
             'quick_type': locale.get_type_name(self.quick_type),
-            'quick_type_emoji': get_type_emoji(self.quick_type),
+            'quick_type_emoji': get_type_emoji_custom(self.quick_type),
             'quick_damage': self.quick_damage,
             'quick_dps': self.quick_dps,
             'quick_duration': self.quick_duration,
@@ -247,11 +251,14 @@ class MonEvent(BaseEvent):
             'charge_id': self.charge_id,
             'charge_type_id': self.charge_type,
             'charge_type': locale.get_type_name(self.charge_type),
-            'charge_type_emoji': get_type_emoji(self.charge_type),
+            'charge_type_emoji': get_type_emoji_custom(self.charge_type),
             'charge_damage': self.charge_damage,
             'charge_dps': self.charge_dps,
             'charge_duration': self.charge_duration,
             'charge_energy': self.charge_energy,
+			
+			# Move Types Combined Emoji
+            'm_types_emoji': self.m_types_emoji,
 
             # Cosmetic
             'gender': self.gender,
