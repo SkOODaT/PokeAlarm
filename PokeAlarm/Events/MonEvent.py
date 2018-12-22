@@ -51,7 +51,7 @@ class MonEvent(BaseEvent):
 
         # Encounter Stats
         self.mon_lvl = check_for_none(
-            int, data.get('level'), Unknown.TINY) 
+            int, data.get('pokemon_level'), Unknown.TINY) 
         self.cp = check_for_none(int, data.get('cp'), Unknown.TINY)
 
         # IVs
