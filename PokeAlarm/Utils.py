@@ -392,6 +392,13 @@ def get_type_emoji_custom(type_id):
         18: u'<:fairy:406309210058653706>'
     }.get(type_id, '')
 
+def get_type_emoji_gym_custom(type_id):
+    return {
+        0: u'<:harmony:509206588553297930>',
+        1: u'<:mystic:408859736134516759>',
+        2: u'<:valor:408859732280082444>',
+        3: u'<:instinct:408859733831843867>'
+    }.get(type_id, '')
 	
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -528,7 +535,7 @@ def get_seconds_remaining(t, timezone=None):
 
 # Return the default url for images and stuff
 def get_image_url(suffix):
-    return 'http://YOURICONURL/' + suffix
+    return 'http://YOURURL/sprites/' + suffix
 
 
 # Returns the id corresponding with the weather
