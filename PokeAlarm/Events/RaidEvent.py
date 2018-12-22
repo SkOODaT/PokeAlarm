@@ -8,7 +8,9 @@ from PokeAlarm.Utils import get_gmaps_link, get_applemaps_link, \
     get_time_as_str, get_move_type, get_move_damage, get_move_dps, \
     get_move_duration, get_move_energy, get_seconds_remaining, \
     get_dist_as_str, get_pokemon_cp_range, is_weather_boosted, \
-    get_base_types, get_weather_emoji, get_type_emoji, get_waze_link
+    get_base_types, get_weather_emoji, get_type_emoji, get_type_emoji_custom, \
+    get_waze_link, get_type_emoji_gym_custom
+
 
 
 class RaidEvent(BaseEvent):
@@ -109,6 +111,9 @@ class RaidEvent(BaseEvent):
         type2 = locale.get_type_name(self.types[1])
 
         cp_range = get_pokemon_cp_range(self.mon_id, self.boss_level)
+
+        self.m_types_emoji = get_type_emoji_custom(self.quick_type) + '/' + get_type_emoji_custom(self.charge_type)
+
         dts.update({
             # Identification
             'gym_id': self.gym_id,
@@ -130,9 +135,9 @@ class RaidEvent(BaseEvent):
                 if Unknown.is_not(type2) else type1),
             'types_emoji': (
                 "{}{}".format(
-                    get_type_emoji(self.types[0]),
-                    get_type_emoji(self.types[1]))
-                if Unknown.is_not(type2) else get_type_emoji(self.types[0])),
+                    get_type_emoji_custom(self.types[0]),
+                    get_type_emoji_custom(self.types[1]))
+                if Unknown.is_not(type2) else get_type_emoji_custom(self.types[0])),
 
             # Form
             'form': form_name,
@@ -175,6 +180,9 @@ class RaidEvent(BaseEvent):
             'boosted_or_empty':
                 locale.get_boosted_text() if self.boss_level == 25 else '',
 
+			# Move Types Combined Emoji
+            'm_types_emoji': self.m_types_emoji,
+
             # Raid Info
             'raid_lvl': self.raid_lvl,
             'mon_name': locale.get_pokemon_name(self.mon_id),
@@ -187,7 +195,7 @@ class RaidEvent(BaseEvent):
             'quick_id': self.quick_id,
             'quick_type_id': self.quick_type,
             'quick_type': locale.get_type_name(self.quick_type),
-            'quick_type_emoji': get_type_emoji(self.quick_type),
+            'quick_type_emoji': get_type_emoji_custom(self.quick_type),
             'quick_damage': self.quick_damage,
             'quick_dps': self.quick_dps,
             'quick_duration': self.quick_duration,
@@ -198,7 +206,7 @@ class RaidEvent(BaseEvent):
             'charge_id': self.charge_id,
             'charge_type_id': self.charge_type,
             'charge_type': locale.get_type_name(self.charge_type),
-            'charge_type_emoji': get_type_emoji(self.charge_type),
+            'charge_type_emoji': get_type_emoji_custom(self.charge_type),
             'charge_damage': self.charge_damage,
             'charge_dps': self.charge_dps,
             'charge_duration': self.charge_duration,
@@ -219,6 +227,7 @@ class RaidEvent(BaseEvent):
                 else Unknown.REGULAR,
             'park': self.park,
             'team_id': self.current_team_id,
+			'team_id_emoji': get_type_emoji_gym_custom(self.current_team_id),
             'team_name': locale.get_team_name(self.current_team_id),
             'team_leader': locale.get_leader_name(self.current_team_id)
         })

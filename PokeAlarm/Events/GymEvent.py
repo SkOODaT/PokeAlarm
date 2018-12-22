@@ -2,7 +2,7 @@
 # 3rd Party Imports
 # Local Imports
 from PokeAlarm.Utils import get_gmaps_link, get_applemaps_link, \
-    get_waze_link, get_dist_as_str
+    get_waze_link, get_dist_as_str, get_type_emoji_gym_custom
 from . import BaseEvent
 from PokeAlarm import Unknown
 
@@ -39,11 +39,30 @@ class GymEvent(BaseEvent):
         # Gym Guards
         self.slots_available = check_for_none(
             int, data.get('slots_available'), Unknown.TINY)
+
         self.guard_count = (
             (6 - self.slots_available)
             if Unknown.is_not(self.slots_available)
             else Unknown.TINY)
 
+        # Battle
+        self.in_battle = check_for_none(
+            int, data.get('in_battle'), Unknown.TINY) 
+
+        if self.in_battle:
+            self.in_battle = '**Under Attack!**'
+        else:
+            self.in_battle = ''
+			
+        # Exraid
+        self.sponsor_id = check_for_none(
+            int, data.get('sponsor_id'), Unknown.TINY) 
+
+        if self.sponsor_id:
+            self.sponsor_id = '**Ex-Raid Gym**'
+        else:
+            self.sponsor_id = ''
+			
         self.name = self.gym_id
         self.geofence = Unknown.REGULAR
         self.custom_dts = {}
@@ -72,9 +91,11 @@ class GymEvent(BaseEvent):
             # Team Info
             'old_team': locale.get_team_name(self.old_team_id),
             'old_team_id': self.old_team_id,
+            'old_team_emoji': get_type_emoji_gym_custom(self.old_team_id),
             'old_team_leader': locale.get_leader_name(self.old_team_id),
             'new_team': locale.get_team_name(self.new_team_id),
             'new_team_id': self.new_team_id,
+			'new_team_emoji': get_type_emoji_gym_custom(self.new_team_id),
             'new_team_leader': locale.get_leader_name(self.new_team_id),
 
             # Details
@@ -85,5 +106,9 @@ class GymEvent(BaseEvent):
             # Guards
             'slots_available': self.slots_available,
             'guard_count': self.guard_count,
+			
+            # Extra
+            'in_battle': self.in_battle,
+            'sponsor_id': self.sponsor_id,
         })
         return dts

@@ -4,7 +4,7 @@ from datetime import datetime
 # Local Imports
 from PokeAlarm.Utils import get_time_as_str, get_seconds_remaining, \
     get_gmaps_link, get_applemaps_link, get_waze_link, get_dist_as_str, \
-    get_weather_emoji
+    get_weather_emoji, get_type_emoji_gym_custom
 from . import BaseEvent
 from PokeAlarm import Unknown
 
@@ -106,7 +106,8 @@ class EggEvent(BaseEvent):
                 self.sponsor_id > 0
                 if Unknown.is_not(self.sponsor_id) else Unknown.REGULAR,
             'park': self.park,
-            'team_id': self.current_team_id,
+            'team_id': self.current_team_id,			
+			'team_id_emoji': get_type_emoji_gym_custom(self.current_team_id),
             'team_name': locale.get_team_name(self.current_team_id),
             'team_leader': locale.get_leader_name(self.current_team_id)
         })
