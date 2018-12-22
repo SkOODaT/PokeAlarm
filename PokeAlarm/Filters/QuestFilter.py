@@ -16,13 +16,13 @@ class QuestFilter(BaseFilter):
 
         # Monster ID - f.monster_ids contains m.monster_id
         self.monster_ids = self.evaluate_attribute(  #
-            event_attribute='monster_id', eval_func=operator.contains,
+            event_attribute='pokemon_id', eval_func=operator.contains,
             limit=BaseFilter.parse_as_set(
                 MonUtils.get_monster_id, 'monsters', data))
 
         # Exclude Monsters - f.monster_ids not contains m.ex_mon_id
         self.exclude_monster_ids = self.evaluate_attribute(  #
-            event_attribute='monster_id',
+            event_attribute='pokemon_id',
             eval_func=lambda d, v: not operator.contains(d, v),
             limit=BaseFilter.parse_as_set(
                 MonUtils.get_monster_id, 'monsters_exclude', data))

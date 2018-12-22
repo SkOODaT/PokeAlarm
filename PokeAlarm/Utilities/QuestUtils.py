@@ -10,21 +10,21 @@ from PokeAlarm.Utils import get_path
 def get_quest_type(quest_type):
     try:
         name = str(quest_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_quest_type, 'ids'):
+            get_quest_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['quest_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_quest_type.ids[nm] = int(id_)
+        if name in get_quest_type.ids:
+            return get_quest_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(quest_type))
 						 
@@ -32,105 +32,105 @@ def get_quest_type(quest_type):
 def get_reward_type(reward_type):
     try:
         name = str(reward_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_reward_type, 'ids'):
+            get_reward_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['reward_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_reward_type.ids[nm] = int(id_)
+        if name in get_reward_type.ids:
+            return get_reward_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(reward_type))
 						 
 def get_condition_type(condition_type):
     try:
         name = str(condition_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_condition_type, 'ids'):
+            get_condition_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['condition_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_condition_type.ids[nm] = int(id_)
+        if name in get_condition_type.ids:
+            return get_condition_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(condition_type))						 
 
 def get_throw_type(throw_type):
     try:
         name = str(throw_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_throw_type, 'ids'):
+            get_throw_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['throw_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_throw_type.ids[nm] = int(id_)
+        if name in get_throw_type.ids:
+            return get_throw_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(throw_type))
 						 
 def get_item_type(item_type):
     try:
         name = str(item_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_item_type, 'ids'):
+            get_item_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['item_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_item_type.ids[nm] = int(id_)
+        if name in get_item_type.ids:
+            return get_item_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(item_type))
 
 def get_pokemon_type(pokemon_type):
     try:
         name = str(pokemon_type).lower()
-        if not hasattr(get_type, 'ids'):
-            get_type.ids = {}
-            files = glob(get_path('locales/*.json'))
+        if not hasattr(get_pokemon_type, 'ids'):
+            get_pokemon_type.ids = {}
+            files = glob(get_path('locales/en.json'))
             for file_ in files:
                 with open(file_, 'r') as f:
                     j = json.loads(f.read())
                     j = j['pokemon_types']
                     for id_ in j:
                         nm = j[id_].lower()
-                        get_type.ids[nm] = int(id_)
-        if name in get_type.ids:
-            return get_type.ids[name]
+                        get_pokemon_type.ids[nm] = int(id_)
+        if name in get_pokemon_type.ids:
+            return get_pokemon_type.ids[name]
         else:
             return int(name)  # try as an integer
-    except ValueError:
+    except Exception:
         raise ValueError("Unable to interpret `{}` as a valid "
                          " severity name or id.".format(pokemon_type))						 
     # if isinstance(type_id, int):

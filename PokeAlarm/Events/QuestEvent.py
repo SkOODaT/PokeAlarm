@@ -69,9 +69,7 @@ class QuestEvent(BaseEvent):
         self.costume_id = None
         self.shiny = None
         self.form_id = None
-		
-        print(data)
-		
+
         for condition in data['conditions']:
             self.infos = condition.get('info')
             self.condition_type = condition.get('type')
@@ -151,18 +149,18 @@ class QuestEvent(BaseEvent):
 			
         stop_sprite = ''
         if self.pokemon_id:
-            stop_sprite = 'http://skoodat.ca:200/sprites/{}.png'.format(self.pokemon_id)
+            stop_sprite = 'http://YOURURL/sprites/{}.png'.format(self.pokemon_id)
         if self.item_id:
-            stop_sprite = 'http://skoodat.ca:200/sprites/regular/quest/{}.png'.format(self.item_id)
+            stop_sprite = 'http://YOURURL/sprites/regular/quest/{}.png'.format(self.item_id)
         if self.stardust:
-            stop_sprite = 'http://skoodat.ca:200/sprites/regular/quest/-{}.png'.format(self.stardust)
+            stop_sprite = 'http://YOURURL/sprites/regular/quest/-{}.png'.format(self.stardust)
             item_name = 'Stardust'
 
         stop_img = ''
         if self.stop_image is not "unknown":
             stop_img = self.stop_image
         else:
-            stop_img = 'http://skoodat.ca:200/sprites/regular/quest/Pokestop.png'
+            stop_img = 'http://YOURURL/sprites/regular/quest/Pokestop.png'
 			
         dts = self.custom_dts.copy()
         dts.update({
