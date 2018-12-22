@@ -173,12 +173,12 @@ class Locale(object):
 
     # Returns the name of the form of for the given Pokemon ID and Form ID
     def get_form_name(self, pokemon_id, form_id):
-        return self.__form_names.get(pokemon_id, {}).get(form_id, 'unknown')
+        return self.__form_names.get(pokemon_id, {}).get(form_id, '')
 
     # Returns the name of the costume for the given Pokemon ID and Costume ID
     def get_costume_name(self, pokemon_id, costume_id):
         return self.__costume_names.get(
-            pokemon_id, {}).get(costume_id, 'unknown')
+            pokemon_id, {}).get(costume_id, '')
 
     # Returns the rarity corresponding to the id
     def get_rarity_name(self, rarity_id):
