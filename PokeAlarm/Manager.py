@@ -623,11 +623,11 @@ class Manager(object):
         mon.name = self.__locale.get_pokemon_name(mon.monster_id)
 
         # Check if previously processed and update expiration
-        #if self.__cache.monster_expiration(mon.enc_id) is not None:
-        #    self._log.debug("{} monster was skipped because it was "
-        #                    "previously processed.".format(mon.name))
-        #    return
-        #self.__cache.monster_expiration(mon.enc_id, mon.disappear_time)
+        if self.__cache.monster_expiration(str(mon.enc_id) + str(mon.iv)) is not None:
+            self._log.debug("{} monster was skipped because it was "
+                            "previously processed.".format(mon.name))
+            return
+        self.__cache.monster_expiration(str(mon.enc_id) + str(mon.iv), mon.disappear_time)
 
         # Check the time remaining
         seconds_left = (mon.disappear_time
@@ -690,8 +690,14 @@ class Manager(object):
 
         # Check the time remaining
         seconds_left = (stop.expiration - datetime.utcnow()).total_seconds()
-        if seconds_left < self.__time_limit:
-            self._log.debug("Stop {} was skipped because only {} seconds "
+        if not stop.incidentexpiration and seconds_left < self.__time_limit:
+            self._log.debug("Lure {} was skipped because only {} seconds "
+                            "remained".format(stop.name, seconds_left))
+            return
+
+        iseconds_left = (stop.incidentexpiration - datetime.utcnow()).total_seconds()
+        if not stop.expiration and iseconds_left < self.__time_limit:
+            self._log.debug("Invasion {} was skipped because only {} seconds "
                             "remained".format(stop.name, seconds_left))
             return
 

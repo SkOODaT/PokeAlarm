@@ -22,6 +22,8 @@ def event_factory(data):
             return MonEvent(message)
         elif kind == 'pokestop':
             return StopEvent(message)
+        elif kind == 'invasion':
+            return StopEvent(message)
         elif kind == 'gym' or kind == 'gym_details':
             return GymEvent(message)
         elif kind == 'raid' and not message.get('pokemon_id'):

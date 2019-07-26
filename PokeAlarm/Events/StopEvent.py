@@ -14,9 +14,15 @@ class StopEvent(BaseEvent):
     def __init__(self, data):
         """ Creates a new Stop Event based on the given dict. """
         super(StopEvent, self).__init__('stop')
+        check_for_none = BaseEvent.check_for_none
 
         # Identification
         self.stop_id = data['pokestop_id']
+        self.stop_name = check_for_none(
+            str, data.get('pokestop_name') or data.get('name'),
+            Unknown.REGULAR)
+        self.stop_image = check_for_none(
+            str, data.get('pokestop_url') or data.get('url'), Unknown.REGULAR)
 
         # Time left
         self.expiration = data['lure_expiration']
@@ -25,6 +31,15 @@ class StopEvent(BaseEvent):
             self.expiration = datetime.utcfromtimestamp(self.expiration)
             self.time_left = get_seconds_remaining(self.expiration)
 
+        # Time left
+        self.incidentexpiration = data['incident_expire_timestamp']
+        self.itime_left = None
+        if self.incidentexpiration is not None:
+            self.incidentexpiration = datetime.utcfromtimestamp(self.incidentexpiration)
+            self.itime_left = get_seconds_remaining(self.incidentexpiration)
+		
+        self.pokestopdisplay = data['pokestop_display']
+		
         # Location
         self.lat = float(data['latitude'])
         self.lng = float(data['longitude'])
@@ -41,16 +56,30 @@ class StopEvent(BaseEvent):
     def generate_dts(self, locale, timezone, units):
         """ Return a dict with all the DTS for this event. """
         time = get_time_as_str(self.expiration, timezone)
+        itime = get_time_as_str(self.incidentexpiration, timezone)
         dts = self.custom_dts.copy()
+        stop_img = ''
+        if self.stop_image is not "unknown":
+            stop_img = self.stop_image
         dts.update({
             # Identification
             'stop_id': self.stop_id,
+            'stop_name': self.stop_name,
+            'stop_image': stop_img,
 
             # Time left
             'time_left': time[0],
             '12h_time': time[1],
             '24h_time': time[2],
 
+            # Incidend Time left
+            'itime_left': itime[0],
+            'i12h_time': itime[1],
+            'i24h_time': itime[2],
+			
+			# Pokestop Display
+            'pokestopdisplay': self.pokestopdisplay,
+			
             # Location
             'lat': self.lat,
             'lng': self.lng,
