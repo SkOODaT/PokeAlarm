@@ -5,7 +5,7 @@ from datetime import datetime
 from PokeAlarm import Unknown
 from . import BaseEvent
 from PokeAlarm.Utils import get_gmaps_link, get_applemaps_link, \
-    get_waze_link, get_time_as_str, get_seconds_remaining, get_dist_as_str
+    get_waze_link, get_time_as_str, get_seconds_remaining, get_dist_as_str, get_grunt_type
 
 
 class StopEvent(BaseEvent):
@@ -39,6 +39,8 @@ class StopEvent(BaseEvent):
             self.itime_left = get_seconds_remaining(self.incidentexpiration)
 		
         self.pokestopdisplay = data['pokestop_display']
+		
+        self.gruntType = data['grunt_type']
 		
         # Location
         self.lat = float(data['latitude'])
@@ -79,6 +81,7 @@ class StopEvent(BaseEvent):
 			
 			# Pokestop Display
             'pokestopdisplay': self.pokestopdisplay,
+            'gruntType': locale.get_grunt_name(self.gruntType),
 			
             # Location
             'lat': self.lat,

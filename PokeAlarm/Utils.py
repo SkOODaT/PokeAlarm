@@ -128,6 +128,23 @@ def get_team_id(team_name):
     return get_team_id.ids.get(name)
 
 
+# Returns the id corresponding with the grunt name
+# (use all locales for flexibility)
+def get_grunt_type(grunt_type):
+    name = grunt_type.lower()
+    if not hasattr(get_grunt_type, 'ids'):
+        get_grunt_type.ids = {}
+        files = glob(get_path('locales/*.json'))
+        for file_ in files:
+            with open(file_, 'r') as f:
+                j = json.loads(f.read())
+                j = j['grunt']
+                for id_ in j:
+                    nm = j[id_].lower()
+                    get_grunt_type.ids[nm] = int(id_)
+    return get_grunt_type.ids.get(name)
+
+
 # Returns the types of a move when requesting
 def get_move_type(move_id):
     if not hasattr(get_move_type, 'info'):

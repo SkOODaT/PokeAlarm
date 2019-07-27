@@ -53,6 +53,12 @@ class Locale(object):
         for id_, val in default["weather"].iteritems():
             self.__weather_names[int(id_)] = weather.get(id_, val)
 
+        # grunt ID -> Name
+        self.__grunt_names = {}
+        grunt = info.get("grunt", {})
+        for id_, val in default["grunt"].iteritems():
+            self.__grunt_names[int(id_)] = grunt.get(id_, val)
+			
         # Size ID -> Size Name
         self.__size_names = {}
         sizes = info.get("sizes", {})
@@ -163,6 +169,10 @@ class Locale(object):
     def get_weather_name(self, weather_id):
         return self.__weather_names.get(weather_id, 'unknown')
 
+    # Returns the name of the grunt associated with the given ID
+    def get_grunt_name(self, grunt_id):
+        return self.__grunt_names.get(grunt_id, 'unknown')
+		
     # Returns the size of the Pokemon based on the Calculated Size Value
     def get_size_name(self, size_id):
         return self.__size_names.get(size_id, 'unknown')
