@@ -417,6 +417,12 @@ def get_type_emoji_gym_custom(type_id):
         3: u'<:instinct:408859733831843867>'
     }.get(type_id, '')
 	
+def get_type_emoji_verified_custom(type_id):
+    return {
+        0: u'<:estimated:548287454118150144>',
+        1: u'<:verified:548287454130733056> ',
+    }.get(type_id, '')
+	
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GMAPS API UTILITIES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
